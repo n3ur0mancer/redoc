@@ -35,14 +35,14 @@ info:
     and standard method from web, mobile and desktop applications.
     <!-- ReDoc-Inject: <security-definitions> -->
   version: 1.0.0
-  title: Swagger Petstore
+  title: DKV API
   termsOfService: 'http://swagger.io/terms/'
   contact:
     email: apiteam@swagger.io
     url: https://github.com/Redocly/redoc
   x-logo:
-    url: 'https://redocly.github.io/redoc/petstore-logo.png'
-    altText: Petstore logo
+    url: 'https://www.dkv.lu/typo3conf/ext/sitepackage/Resources/Public/styleguide/media/logo/logo-DKV-lalux.svg'
+    altText: DKV logo
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
@@ -50,20 +50,15 @@ externalDocs:
   description: Find out how to create Github repo for your OpenAPI spec.
   url: 'https://github.com/Rebilly/generator-openapi-repo'
 tags:
-  - name: pet
-    description: Everything about your Pets
-  - name: store
-    description: Access to Petstore orders
-  - name: user
-    description: Operations about user
+  - name: MSG
+    description: Everything about MSG endpoints
+  - name: Tinqin
+    description: Everything about Tinqin endpoints
 x-tagGroups:
-  - name: General
+  - name: Suppliers
     tags:
-      - pet
-      - store
-  - name: User Management
-    tags:
-      - user
+      - MSG
+      - Tinqin
 securityDefinitions:
   petstore_auth:
     description: |

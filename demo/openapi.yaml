@@ -6,10 +6,8 @@ servers:
     description: Sandbox server
 info:
   description: |
-    This is a sample server Petstore server.
-    You can find out more about Swagger at
-    [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
-    For this sample, you can use the api key `special-key` to test the authorization filters.
+    This is a sample server. Used to demonstrate ReDoc capabilities to localy serve and render OpenAPI document.
+
 
     # Introduction
     This API is documented in **OpenAPI format** and is based on
@@ -18,71 +16,39 @@ info:
     tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
     OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/main/docs/redoc-vendor-extensions.md).
 
-    # OpenAPI Specification
-    This API is documented in **OpenAPI format** and is based on
-    [Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.
-    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
-    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
-    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/main/docs/redoc-vendor-extensions.md).
-
-    # Cross-Origin Resource Sharing
-    This API features Cross-Origin Resource Sharing (CORS) implemented in compliance with  [W3C spec](https://www.w3.org/TR/cors/).
-    And that allows cross-domain communication from the browser.
-    All responses have a wildcard same-origin which makes them completely public and accessible to everyone, including any code on any site.
-
-    # Authentication
-
-    Petstore offers two forms of authentication:
-      - API Key
-      - OAuth2
-    OAuth2 - an open protocol to allow secure authorization in a simple
-    and standard method from web, mobile and desktop applications.
-
     <!-- ReDoc-Inject: <security-definitions> -->
 
   version: 1.0.0
-  title: Swagger Petstore
-  termsOfService: 'http://swagger.io/terms/'
+  title: DKV API Documentation
   contact:
     name: API Support
-    email: apiteam@swagger.io
-    url: https://github.com/Redocly/redoc
+    email: pit.wagner@dkv.lu
   x-logo:
-    url: 'https://redocly.github.io/redoc/petstore-logo.png'
-    altText: Petstore logo
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-externalDocs:
-  description: Find out how to create Github repo for your OpenAPI spec.
-  url: 'https://github.com/Rebilly/generator-openapi-repo'
+    url: 'https://www.dkv.lu/typo3conf/ext/sitepackage/Resources/Public/styleguide/media/logo/logo-DKV-lalux.svg'
+    altText: DKV logo
 tags:
-  - name: pet
-    description: Everything about your Pets
-  - name: store
-    description: Access to Petstore orders
-  - name: user
-    description: Operations about user
-  - name: pet_model
-    x-displayName: The Pet Model
+  - name: MSG
+    description: Everything about the supplier MSG.
+  - name: Tinqin
+    description: Everything about the supplier Tinqin.
+  - name: msg_model
+    x-displayName: The MSG API
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/Pet" />
-  - name: store_model
-    x-displayName: The Order Model
+  - name: tinqin_model
+    x-displayName: The Tinqin API
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/Order" exampleRef="#/components/examples/Order" showReadOnly={true} showWriteOnly={true} />
 x-tagGroups:
   - name: General
     tags:
-      - pet
-      - store
-  - name: User Management
+      - MSG
+      - Tinqin
+
+  - name: API
     tags:
-      - user
-  - name: Models
-    tags:
-      - pet_model
-      - store_model
+      - msg_model
+      - tinqin_model
 security:
   - {}
 paths:
@@ -113,7 +79,7 @@ paths:
         '405':
           description: Invalid input
       security:
-        - petstore_auth:
+        - msg_auth:
             - 'write:pets'
             - 'read:pets'
       x-codeSamples:
@@ -161,7 +127,7 @@ paths:
         '405':
           description: Validation exception
       security:
-        - petstore_auth:
+        - msg_auth:
             - 'write:pets'
             - 'read:pets'
       x-codeSamples:
@@ -229,7 +195,7 @@ paths:
         '405':
           description: Invalid input
       security:
-        - petstore_auth:
+        - msg_auth:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -268,7 +234,7 @@ paths:
         '400':
           description: Invalid pet value
       security:
-        - petstore_auth:
+        - msg_auth:
             - 'write:pets'
             - 'read:pets'
   '/pet/{petId}/uploadImage':
@@ -294,7 +260,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
       security:
-        - petstore_auth:
+        - msg_auth:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -344,7 +310,7 @@ paths:
         '400':
           description: Invalid status value
       security:
-        - petstore_auth:
+        - msg_auth:
             - 'write:pets'
             - 'read:pets'
   /pet/findByTags:
@@ -386,7 +352,7 @@ paths:
         '400':
           description: Invalid tag value
       security:
-        - petstore_auth:
+        - msg_auth:
             - 'write:pets'
             - 'read:pets'
   /store/inventory:
@@ -1189,25 +1155,7 @@ components:
               $ref: '#/components/schemas/User'
       description: List of user object
       required: true
-  securitySchemes:
-    petstore_auth:
-      description: |
-        Get access to data while protecting your account credentials.
-        OAuth2 is also a safer and more secure way to give you access.
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
-          scopes:
-            'write:pets': modify pets in your account
-            'read:pets': read your pets
-    api_key:
-      description: >
-        For this sample, you can use the api key `special-key` to test the
-        authorization filters.
-      type: apiKey
-      name: api_key
-      in: header
+
   examples:
     Order:
       value:
